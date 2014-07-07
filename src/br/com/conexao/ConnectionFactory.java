@@ -9,6 +9,8 @@ public class ConnectionFactory {
 
     public Connection getConnection() {
 	try {
+	    //Class.forName("com.mysql.jdbc.Driver");  
+	    DriverManager.registerDriver(new com.mysql.jdbc.Driver());  
 	return
 	(Connection) DriverManager.getConnection("jdbc:mysql://localhost/contatos", "root", "admin");
 	} catch (SQLException e) {
@@ -16,4 +18,3 @@ public class ConnectionFactory {
 	}
     }
 }
-;

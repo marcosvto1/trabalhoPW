@@ -14,7 +14,7 @@
           
         <ul id="menu">
              <li><a href="index.jsp">Cadastro</a></li>
-             <li><a href="Listar.jsp">Listar</a></li>
+             <li><a href="mostrar.jsp">Listar</a></li>
         </ul>
    </div>
    

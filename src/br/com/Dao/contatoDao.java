@@ -2,11 +2,13 @@ package br.com.Dao;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import br.com.conexao.ConnectionFactory;
 import br.com.modelo.Contato;
-
 import com.mysql.jdbc.PreparedStatement;
 
 public class contatoDao {
@@ -42,5 +44,30 @@ public class contatoDao {
 	        throw new RuntimeException(e);
 	    }
 	}
-
+    
+    public List<Contato> getLista() {
+	try {	
+	List<Contato> contatos = new ArrayList<Contato>();
+	PreparedStatement stmt = (PreparedStatement) this.connection.prepareStatement("select * from contato");
+	ResultSet rs= stmt.executeQuery();
+	
+		while(rs.next()){
+		    Contato contato = new Contato();
+		    contato.setId(rs.getLong("id"));
+		    contato.setNome(rs.getString("nome"));
+		    contato.setEmail(rs.getString("email"));
+		    contato.setEnd(rs.getString("end"));
+		    Calendar data = Calendar.getInstance();
+		    data.setTime(rs.getDate("dateNasc"));
+		    contato.setDataNasc(data);
+		    contatos.add(contato);
+	        }
+		rs.close();
+		stmt.close();
+		connection.close();
+	     return contatos;
+	 } catch (SQLException e) {
+	         throw new RuntimeException(e);
+	  }
+    }
 }
